@@ -11,7 +11,10 @@ import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
-  imports: [ConfigModule.forRoot(),
+ imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, 
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DEV_HOST,

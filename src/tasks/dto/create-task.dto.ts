@@ -16,10 +16,5 @@ export class CreateTaskDto {
   @IsOptional()
   status?: TaskStatus;
 
-  @ApiProperty({ description: 'Owner user id (UUID)' })
-  @IsUUID()
-  userId: string;
 }
 
-
-//export class CreateTaskDto {}

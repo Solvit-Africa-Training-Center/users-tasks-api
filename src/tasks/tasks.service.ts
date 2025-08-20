@@ -16,18 +16,17 @@ export class TasksService {
     private readonly userRepo: Repository<User>,
   ) {}
 
-  async create(dto: CreateTaskDto) {
-     const user = await this.userRepo.findOne({ where: { id: dto.userId } });
-     if (!user) throw new NotFoundException('User not found');
-
-    const task = this.taskRepo.create({
-      title: dto.title,
-      description: dto.description ?? undefined,
-      status: dto.status ?? TaskStatus.PENDING,
-      user,
-    });
-    return this.taskRepo.save(task);
-  }
+  async create(dto: CreateTaskDto, userId: string) {
+  const user = await this.userRepo.findOne({ where: { id: userId } });
+  if (!user) throw new NotFoundException('User not found');
+  const task = this.taskRepo.create({
+    title: dto.title,
+    description: dto.description ?? undefined,
+    status: dto.status ?? TaskStatus.PENDING,
+    user,
+  });
+  return this.taskRepo.save(task);
+}
 
    async findAll(page = 1, limit = 10) {
     const take = Math.max(1, Math.min(100, limit));

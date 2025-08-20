@@ -10,7 +10,8 @@ import { LoginDto } from './dto/login.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private userRepo: Repository<User>,
+    @InjectRepository(User)
+    private userRepo: Repository<User>,
     private jwt: JwtService,
   ) {}
 
@@ -22,9 +23,11 @@ export class AuthService {
       name: dto.name,
       email: dto.email,
       password: await bcrypt.hash(dto.password, 10),
+      role: 'user',
     });
     const saved = await this.userRepo.save(user);
-    return this.sign(saved.id, saved.email);
+  const { password, ...userData } = saved;
+  return userData;
   }
 
   async login(dto: LoginDto) {
@@ -34,11 +37,11 @@ export class AuthService {
     const ok = await bcrypt.compare(dto.password, user.password);
     if (!ok) throw new UnauthorizedException('Invalid credentials');
 
-    return this.sign(user.id, user.email);
+    return this.sign(user.id, user.email, user.role);
   }
 
-  private async sign(userId: string, email: string) {
-    const payload = { sub: userId, email };
+  private async sign(userId: string, email: string, role: string) {
+    const payload = { sub: userId, email, role };
     const access_token = await this.jwt.signAsync(payload);
     return { access_token };
   }

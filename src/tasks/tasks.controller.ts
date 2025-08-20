@@ -13,9 +13,9 @@ export class TasksController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() dto: CreateTaskDto) {
-    return this.tasksService.create(dto);
-  }
+  create(@Body() dto: CreateTaskDto, @Req() req: any) {
+  return this.tasksService.create(dto, req.user.userId);
+ }
 
   @ApiOkResponse({ description: 'Paginated tasks' })
   @Get()

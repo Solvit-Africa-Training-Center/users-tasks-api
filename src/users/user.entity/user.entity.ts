@@ -12,6 +12,9 @@ export class User {
     this.id = uuidv4();
   }
 
+  @Column({ default: 'user' })
+  role: 'user' | 'admin';
+  
   @Column()
   name: string;
 

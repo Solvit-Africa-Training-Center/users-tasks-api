@@ -1,10 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+   // Seed admin user if not exists
+  const userRepo = app.get('UserRepository') as any;
+  const admin = await userRepo.findOne({ where: { email: 'admin@example.com' } });
+  if (!admin) {
+    await userRepo.save({
+      id: '5f1c9e3a-22e2-4b0b-9f62-7c4f4e1e8a4d',
+      name: 'Admin',
+      email: 'admin@example.com',
+      password: await bcrypt.hash('admin123', 10),
+      role: 'admin',
+    });
+  }
    app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,
