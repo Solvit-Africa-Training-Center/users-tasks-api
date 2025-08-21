@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,8 +30,8 @@ export class AuthService {
       role: 'user',
     });
     const saved = await this.userRepo.save(user);
-  const { password, ...userData } = saved;
-  return userData;
+    const { password, ...userData } = saved;
+    return userData;
   }
 
   async login(dto: LoginDto) {

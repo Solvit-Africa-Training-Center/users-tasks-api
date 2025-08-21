@@ -6,15 +6,12 @@ export class CreateTaskDto {
   @ApiProperty()
   @IsNotEmpty()
   title: string;
-  
+
   @ApiPropertyOptional()
   @IsOptional()
   description?: string;
 
-  @ApiPropertyOptional({ enum: TaskStatus })
   @IsEnum(TaskStatus)
   @IsOptional()
   status?: TaskStatus;
-
 }
-

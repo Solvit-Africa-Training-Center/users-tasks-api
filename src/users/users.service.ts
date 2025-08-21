@@ -3,11 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity/user.entity';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import *as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-
   constructor(@InjectRepository(User) private userRepo: Repository<User>) {}
 
   async create(dto: CreateUserDto) {
@@ -18,17 +17,20 @@ export class UsersService {
     });
     const saved = await this.userRepo.save(user);
     const { password, ...safe } = saved;
-    return safe
+    return safe;
   }
 
   async findAll() {
-    return await this.userRepo.find({ relations: ['tasks'] })
-      .then(users => users.map(({ password, ...u }) => u),
-      );
+    return await this.userRepo
+      .find({ relations: ['tasks'] })
+      .then((users) => users.map(({ password, ...u }) => u));
   }
 
   async findOne(id: string) {
-     const user = await this.userRepo.findOne({ where: { id }, relations: ['tasks'] });
+    const user = await this.userRepo.findOne({
+      where: { id },
+      relations: ['tasks'],
+    });
     if (!user) throw new NotFoundException('User not found');
     const { password, ...safe } = user;
     return safe;

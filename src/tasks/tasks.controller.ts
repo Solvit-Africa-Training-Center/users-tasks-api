@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, Query,Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+  Query,
+  Req,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from '../tasks/dto/create-task.dto';
 import { UpdateTaskDto } from '../tasks/dto/update-task.dto';
@@ -8,14 +19,14 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @ApiTags('tasks')
 @Controller('tasks')
 export class TasksController {
-    constructor(private readonly tasksService: TasksService) {}
+  constructor(private readonly tasksService: TasksService) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() dto: CreateTaskDto, @Req() req: any) {
-  return this.tasksService.create(dto, req.user.userId);
- }
+    return this.tasksService.create(dto, req.user.userId);
+  }
 
   @ApiOkResponse({ description: 'Paginated tasks' })
   @Get()

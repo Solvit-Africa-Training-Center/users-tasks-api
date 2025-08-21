@@ -10,7 +10,7 @@ import { RolesGuard } from '../auth/roles.guard';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-     constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   create(@Body() dto: CreateUserDto) {
@@ -30,7 +30,7 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
-  
+
   @ApiOkResponse({ description: 'Delete user' })
   @Delete(':id')
   remove(@Param('id') id: string) {

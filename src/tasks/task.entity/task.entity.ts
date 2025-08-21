@@ -1,4 +1,10 @@
-import { Entity,  BeforeInsert,  PrimaryColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  BeforeInsert,
+  PrimaryColumn,
+  Column,
+  ManyToOne,
+} from 'typeorm';
 import { User } from '../../users/user.entity/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
@@ -18,20 +24,23 @@ export class Task {
   addId() {
     this.id = uuidv4();
   }
-  
+
   @ApiProperty()
   @Column()
   title: string;
-  
-  @ApiProperty({ required: false})
+
+  @ApiProperty({ required: false })
   @Column({ nullable: true })
   description: string;
 
-  @ApiProperty({ enum: TaskStatus, default:TaskStatus.PENDING})
+  @ApiProperty({ enum: TaskStatus, default: TaskStatus.PENDING })
   @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
   status: TaskStatus;
 
-  @ManyToOne(() => User, (user) => user.tasks, { onDelete: 'CASCADE', eager:true })
+  @ManyToOne(() => User, (user) => user.tasks, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
   user: User;
 }
 

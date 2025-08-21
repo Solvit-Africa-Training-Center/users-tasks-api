@@ -9,11 +9,10 @@ import { Task } from './tasks/task.entity/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-
 @Module({
- imports: [
+  imports: [
     ConfigModule.forRoot({
-      isGlobal: true, 
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -24,8 +23,12 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DEV_DATABASE_NAME,
       entities: [User, Task],
       autoLoadEntities: true,
-      synchronize: true, 
-    }),UsersModule, TasksModule, AuthModule],
+      synchronize: true,
+    }),
+    UsersModule,
+    TasksModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

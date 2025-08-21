@@ -8,5 +8,4 @@ export class UpdateTaskDto {
   status: TaskStatus;
 }
 
-
 //export class UpdateTaskDto {}

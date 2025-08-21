@@ -1,4 +1,10 @@
-import { BeforeInsert, Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
+import {
+  BeforeInsert,
+  Entity,
+  PrimaryColumn,
+  Column,
+  OneToMany,
+} from 'typeorm';
 import { Task } from '../../tasks/task.entity/task.entity';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,14 +13,14 @@ export class User {
   @PrimaryColumn('uuid')
   id: string;
 
-   @BeforeInsert()
+  @BeforeInsert()
   addId() {
     this.id = uuidv4();
   }
 
   @Column({ default: 'user' })
   role: 'user' | 'admin';
-  
+
   @Column()
   name: string;
 
@@ -28,5 +34,4 @@ export class User {
   tasks: Task[];
 }
 
-
-export class UserEntity { }
+export class UserEntity {}

@@ -105,8 +105,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [jean baptiste Niyikiza](https://twitter.com/kammysliwiec)
-- Website - [https:// jbniyikiza](https:/personal-portifolio-git-main-niyikizas-projects.vercel.app/)
+- Author - [jean Baptiste Niyikiza](https:/personal-portifolio-git-main-niyikizas-projects.vercel.app/)
+- Website - [https://jbniyikiza](https:/personal-portifolio-git-main-niyikizas-projects.vercel.app/)
 - LinkedIn - [@keep in touch](https://www.linkedin.com/in/niyikiza-jean-baptiste2025/)
 
 ## License
