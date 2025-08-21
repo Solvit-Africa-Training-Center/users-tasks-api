@@ -9,13 +9,13 @@ import { LoginDto } from './dto/login.dto';
 export class AuthController {
   constructor(private readonly auth: AuthService) {}
 
-  @ApiCreatedResponse({ description: 'User registered, returns JWT' })
+  @ApiCreatedResponse({ description: 'User registered, returns user' })
   @Post('signup')
   signup(@Body() dto: SignupDto) {
     return this.auth.signup(dto);
   }
 
-  @ApiOkResponse({ description: 'Login success, returns JWT' })
+  @ApiOkResponse({ description: 'Login success, returns token' })
   @Post('login')
   login(@Body() dto: LoginDto) {
     return this.auth.login(dto);

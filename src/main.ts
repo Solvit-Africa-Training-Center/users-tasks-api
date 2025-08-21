@@ -7,7 +7,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Seed admin user if not exists
   const userRepo = app.get('UserRepository') as any;
   const admin = await userRepo.findOne({
     where: { email: 'admin@example.com' },
@@ -32,11 +31,18 @@ async function bootstrap() {
     .setTitle('Users & Tasks API')
     .setDescription('NestJS + TypeORM + JWT example')
     .setVersion('1.0')
-    .addBearerAuth()
+     .addBearerAuth(
+       {
+         type: 'http',
+         scheme: 'bearer',
+         bearerFormat: 'JWT'
+       },
+    'access-token', 
+  )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger-doc-api', app, document);
 
   await app.listen(parseInt(process.env.PORT as string, 10) || 3000);
 }

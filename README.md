@@ -21,7 +21,7 @@
 ## SETUP A NESTJS PROJECT
 
 ```bash
-# clone repo
+#  generate project
 
 $ npm i -g @nestjs/cli
 $ nest new project-name
