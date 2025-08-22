@@ -21,9 +21,8 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.userRepo
-      .find({ relations: ['tasks'] })
-      .then((users) => users.map(({ password, ...u }) => u));
+    const users = await this.userRepo.find({ relations: ['tasks'] });
+    return users.map(({ password, ...user }) => user);
   }
 
   async findOne(id: string) {

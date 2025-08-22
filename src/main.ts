@@ -42,7 +42,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger-doc-api', app, document);
+  SwaggerModule.setup('api/swagger-doc', app, document);
 
   await app.listen(parseInt(process.env.PORT as string, 10) || 3000);
 }
