@@ -49,6 +49,28 @@ $ nest g module auth
 $ nest g controller auth
 $ nest g service auth
 
+# AI module
+$ nest g module ai
+$ nest g service ai
+$ nest g controller ai
+
+# Dashboard module
+$ nest g module dashboard
+$ nest g service dashboard
+$ nest g controller dashboard
+
+# Integrations (as a parent module)
+$ nest g module integrations
+
+# Notion submodule
+$ nest g module integrations/notion
+$ nest g service integrations/notion
+$ nest g controller integrations/notion
+
+# Calendar submodule
+$ nest g module integrations/calendar
+$ nest g service integrations/calendar
+$ nest g controller integrations/calendar
 # create entity insntaces and dtos
 $ nest g class users/user.entity --no-spec
 $ nest g class tasks/task.entity --no-spec

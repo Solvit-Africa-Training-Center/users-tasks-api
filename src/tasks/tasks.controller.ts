@@ -14,7 +14,7 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from '../tasks/dto/create-task.dto';
 import { UpdateTaskDto } from '../tasks/dto/update-task.dto';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
 @ApiTags('tasks')
 @Controller('tasks')
@@ -36,7 +36,7 @@ export class TasksController {
     const l = Math.max(1, Math.min(100, parseInt(limit, 10) || 10));
     return this.tasksService.findAll(p, l, req.user.userId, req.user.role);
   }
-  
+ 
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'get a single task' })
   @UseGuards(JwtAuthGuard)
@@ -44,8 +44,7 @@ export class TasksController {
   findOne(@Param('id') id: string, @Req() req: any) {
     return this.tasksService.findOne(id, req.user.userId, req.user.role);
   }
-
-  @ApiBearerAuth()
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateTaskDto, @Req() req: any) {

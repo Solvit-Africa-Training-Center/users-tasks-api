@@ -8,6 +8,10 @@ import { User } from './users/user.entity/user.entity';
 import { Task } from './tasks/task.entity/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { AiModule } from './ai/ai.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { NotionModule } from './integrations/notion/notion.module';
+import { CalendarModule } from './integrations/calendar/calendar.module';
 
 @Module({
   imports: [
@@ -28,6 +32,10 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     TasksModule,
     AuthModule,
+    AiModule,
+    DashboardModule,
+    NotionModule,
+    CalendarModule,
   ],
   controllers: [AppController],
   providers: [AppService],

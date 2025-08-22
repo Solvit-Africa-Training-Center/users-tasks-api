@@ -4,9 +4,9 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { ApiCreatedResponse,ApiBearerAuth, ApiOkResponse, ApiTags,ApiUnauthorizedResponse,
   ApiForbiddenResponse,ApiNotFoundResponse, } from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { Roles } from '../auth/roles.decorator';
-import { RolesGuard } from '../auth/roles.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { RolesGuard } from '../common/guards/roles.guard';
 
 @ApiTags('users')
 @Controller('users')
