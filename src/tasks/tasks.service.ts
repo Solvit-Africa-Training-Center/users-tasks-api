@@ -9,7 +9,7 @@ import { Task, TaskStatus } from '../tasks/task.entity/task.entity';
 import { CreateTaskDto } from '../tasks/dto/create-task.dto';
 import { UpdateTaskDto } from '../tasks/dto/update-task.dto';
 import { User } from '../users/user.entity/user.entity';
-import  { PaginationDto } from '../common/dto/pagination.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class TasksService {
@@ -57,29 +57,28 @@ export class TasksService {
   // }
 
   // tasks.service.ts
-async findAll(
-  paginationDto: PaginationDto,
-  requesterUserId: string,
-  role: string,
-) {
-  const { page = 1, limit = 10 } = paginationDto;
+  async findAll(
+    paginationDto: PaginationDto,
+    requesterUserId: string,
+    role: string,
+  ) {
+    const { page = 1, limit = 10 } = paginationDto;
 
-  const take = Math.max(1, Math.min(100, limit));
-  const skip = Math.max(0, (page - 1) * take);
+    const take = Math.max(1, Math.min(100, limit));
+    const skip = Math.max(0, (page - 1) * take);
 
-  const where = role === 'admin' ? {} : { user: { id: requesterUserId } };
+    const where = role === 'admin' ? {} : { user: { id: requesterUserId } };
 
-  const [items, total] = await this.taskRepo.findAndCount({
-    take,
-    skip,
-    where,
-    order: { dueDate: 'ASC', priority: 'DESC' },
-    relations: ['user'],
-  });
+    const [items, total] = await this.taskRepo.findAndCount({
+      take,
+      skip,
+      where,
+      order: { dueDate: 'ASC', priority: 'DESC' },
+      relations: ['user'],
+    });
 
-  return { page, limit: take, total, items };
-}
-
+    return { page, limit: take, total, items };
+  }
 
   async findOne(id: string, requesterUserId: string, role: string) {
     const task = await this.taskRepo.findOne({
@@ -95,7 +94,12 @@ async findAll(
     return task;
   }
 
-  async updateStatus(id: string, dto: UpdateTaskDto, requesterUserId: string, role: string) {
+  async updateStatus(
+    id: string,
+    dto: UpdateTaskDto,
+    requesterUserId: string,
+    role: string,
+  ) {
     const task = await this.taskRepo.findOne({
       where: { id },
       relations: ['user'],
@@ -107,7 +111,7 @@ async findAll(
     }
 
     if (dto.status) {
-    task.status = dto.status;
+      task.status = dto.status;
     }
     return this.taskRepo.save(task);
   }

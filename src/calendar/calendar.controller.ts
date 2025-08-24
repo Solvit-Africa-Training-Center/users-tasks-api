@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Param,
+  Body,
+  Req,
+} from '@nestjs/common';
 import { CalendarService } from './calendar.service';
 import { CreateCalendarDto, UpdateCalendarDto } from './calender.dto';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
@@ -31,7 +40,11 @@ export class CalendarController {
 
   @Patch(':id')
   @ApiOkResponse({ description: 'Event successfully updated' })
-  update(@Param('id') id: string, @Body() dto: UpdateCalendarDto, @Req() req: any) {
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateCalendarDto,
+    @Req() req: any,
+  ) {
     return this.calendarService.update(id, dto, req.user.userId, req.user.role);
   }
 

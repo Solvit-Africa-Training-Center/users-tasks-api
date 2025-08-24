@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
-import {HttpExceptionFilter} from './common/filters/exception.filter'
+import { HttpExceptionFilter } from './common/filters/exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -35,14 +35,14 @@ async function bootstrap() {
     .setTitle('Users & Tasks API')
     .setDescription('NestJS + TypeORM + JWT example')
     .setVersion('1.0')
-     .addBearerAuth(
-       {
-         type: 'http',
-         scheme: 'bearer',
-         bearerFormat: 'JWT'
-       },
-    'access-token', 
-  )
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

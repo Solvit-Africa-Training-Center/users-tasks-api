@@ -26,7 +26,7 @@ import { CalendarEvent } from './calendar/calendar.entity';
       username: process.env.DEV_USERNAME,
       password: process.env.DEV_PASSWORD,
       database: process.env.DEV_DATABASE_NAME,
-      entities: [User, Task, Event, CalendarEvent ],
+      entities: [User, Task, Event, CalendarEvent],
       autoLoadEntities: true,
       synchronize: true,
     }),

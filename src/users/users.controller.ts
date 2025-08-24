@@ -1,8 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { ApiCreatedResponse,ApiBearerAuth, ApiOkResponse, ApiTags,ApiUnauthorizedResponse,
-  ApiForbiddenResponse,ApiNotFoundResponse, } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -17,7 +24,7 @@ export class UsersController {
   create(@Body() dto: CreateUserDto) {
     return this.usersService.create(dto);
   }
-  
+
   @ApiOkResponse({ description: 'List of all users' })
   @ApiBearerAuth('access-token')
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })

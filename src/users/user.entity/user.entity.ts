@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Task } from '../../tasks/task.entity/task.entity';
-import {Event} from '../../calendar/event.entity'
+import { Event } from '../../calendar/event.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
