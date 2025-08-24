@@ -1,10 +1,4 @@
-import {
-  Entity,
-  BeforeInsert,
-  PrimaryColumn,
-  Column,
-  ManyToOne,
-} from 'typeorm';
+import {Entity,BeforeInsert,PrimaryColumn,Column,ManyToOne} from 'typeorm';
 import { User } from '../../users/user.entity/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
@@ -13,6 +7,12 @@ export enum TaskStatus {
   PENDING = 'PENDING',
   IN_PROGRESS = 'IN_PROGRESS',
   DONE = 'DONE',
+}
+
+export enum TaskPriority {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
 }
 
 @Entity()
@@ -32,6 +32,18 @@ export class Task {
   @ApiProperty({ required: false })
   @Column({ nullable: true })
   description: string;
+
+  @Column({ type: 'enum', enum: TaskPriority, default: TaskPriority.MEDIUM })
+  priority: TaskPriority;
+
+  @Column({ nullable: true })
+  category?: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  dueDate?: Date;
+
+  @Column({ nullable: true })
+  recurrence?: string;
 
   @ApiProperty({ enum: TaskStatus, default: TaskStatus.PENDING })
   @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })

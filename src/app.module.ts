@@ -6,13 +6,14 @@ import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
 import { User } from './users/user.entity/user.entity';
 import { Task } from './tasks/task.entity/task.entity';
+import { Event } from './calendar/event.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AiModule } from './ai/ai.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { NotionModule } from './integrations/notion/notion.module';
-import { CalendarModule } from './integrations/calendar/calendar.module';
-
+import { NotionModule } from './notion/notion.module';
+import { CalendarModule } from './calendar/calendar.module';
+import { CalendarEvent } from './calendar/calendar.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +26,7 @@ import { CalendarModule } from './integrations/calendar/calendar.module';
       username: process.env.DEV_USERNAME,
       password: process.env.DEV_PASSWORD,
       database: process.env.DEV_DATABASE_NAME,
-      entities: [User, Task],
+      entities: [User, Task, Event, CalendarEvent ],
       autoLoadEntities: true,
       synchronize: true,
     }),
