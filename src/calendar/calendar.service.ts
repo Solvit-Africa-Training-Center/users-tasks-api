@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCalendarDto, UpdateCalendarDto } from './calender.dto';
 import { User } from '../users/user.entity/user.entity';
-import { Event } from './event.entity';
+import { CalendarEvent } from './calendar.entity';
 
 @Injectable()
 export class CalendarService {
   constructor(
-    @InjectRepository(Event)
-    private readonly calendarRepo: Repository<Event>,
+    @InjectRepository(CalendarEvent)
+    private readonly calendarRepo: Repository<CalendarEvent>,
   ) {}
   async create(dto: CreateCalendarDto, userId: string) {
     const event = this.calendarRepo.create({

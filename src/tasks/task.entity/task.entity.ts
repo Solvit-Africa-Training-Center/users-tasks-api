@@ -3,9 +3,12 @@ import {
   BeforeInsert,
   PrimaryColumn,
   Column,
-  ManyToOne,
+  ManyToOne,OneToMany, ManyToMany, JoinTable,CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/user.entity/user.entity';
+import { CalendarEvent } from '../../calendar/calendar.entity'
+import {TaskHistory} from '../../tasks/task.entity/task-history.entity'
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -60,6 +63,29 @@ export class Task {
     eager: true,
   })
   user: User;
+
+  @ManyToOne(() => Task, (task) => task.subtasks, { nullable: true })
+parentTask: Task;
+
+  @OneToMany(() => Task, (task) => task.parentTask)
+  subtasks: Task[];
+
+  @ManyToMany(() => Task)
+  @JoinTable()
+  dependencies: Task[];
+
+  @OneToMany(() => CalendarEvent, (event) => event.task)
+  calendarEvents: CalendarEvent[];
+
+   @OneToMany(() => TaskHistory, (history) => history.task)
+  history: TaskHistory[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
 }
 
 //export class TaskEntity { }

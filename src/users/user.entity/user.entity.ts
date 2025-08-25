@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Task } from '../../tasks/task.entity/task.entity';
-import { Event } from '../../calendar/event.entity';
+import { CalendarEvent } from '../../calendar/calendar.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
@@ -34,8 +34,8 @@ export class User {
   @OneToMany(() => Task, (task) => task.user, { cascade: true })
   tasks: Task[];
 
-  @OneToMany(() => Event, (event) => event.user)
-  events: Event[];
+    @OneToMany(() => CalendarEvent, (event) => event.user) // ✅ now correct
+  events: CalendarEvent[];
 }
 
 export class UserEntity {}

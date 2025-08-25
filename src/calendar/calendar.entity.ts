@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { User } from '../users/user.entity/user.entity';
+import {Task} from '../tasks/task.entity/task.entity'
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
@@ -39,4 +40,12 @@ export class CalendarEvent {
   @ApiProperty({ description: 'Event owner (user who created it)' })
   @ManyToOne(() => User, (user) => user.events, { onDelete: 'CASCADE' })
   user: User;
+
+  @ManyToOne(() => Task, (task) => task.calendarEvents, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  task: Task;
+
+  
 }
